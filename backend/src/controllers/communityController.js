@@ -40,7 +40,7 @@ export const communityController = {
   
   async deleteCommunity(req, res) {
     try {
-      const communityId = req.params.id;
+      const communityId = req.body;
       const result = await communityService.deleteCommunity(communityId, req.user.id);
       res.json(result);
     } catch (error) {
