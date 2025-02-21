@@ -1,63 +1,43 @@
+
 import { userService } from '../services/userService.js';
-import { CustomError } from '../utils/customError.js';
 
-class UserController {
-
-    getAllUser = async (req, res) => {
-        try {
-            const users = await userService.getAllUser();
-            if (!users) {
-                console.error('User not found', 404);
-            }
-            res.status(200).json({
-                success: true,
-                data: users
-            });
-        } catch (error) {
-            throw new CustomError(error.message, error.statusCode || 400);
-        }
-    };
-    getUserById = async (req, res) => {
-        try {
-            const user = await userService.getUserById(req.params.id);
-            if (!user) {
-                console.error('User not found', 404);
-            }
-            res.status(200).json({
-                success: true,
-                data: user
-            });
-        } catch (error) {
-            throw new CustomError(error.message, error.statusCode || 400);
-        }
-    };
-
-    updateUser = async (req, res) => {
-        try {
-            const user = await userService.updateUser(req.params.id, req.body);
-            res.status(200).json({
-                success: true,
-                data: user
-            });
-        } catch (error) {
-            throw new CustomError(error.message, 400);
-        }
-    };
-
-    deleteUser = async (req, res) => {
-        try {
-            const user = await userService.deleteUser(req.params.id);
-            if (!user) {
-                throw new CustomError('User not found', 404);
-            }
-            res.status(200).json({
-                success: true,
-                message: 'User deleted successfully'
-            });
-        } catch (error) {
-            throw new CustomError(error.message, 400);
-        }
-    };
-}
-
-export const userController = new UserController();
+export const userController = {
+  async registerUser(req, res) {
+    try {
+      const userData = req.body;
+      const user = await userService.registerUser(userData);
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+  
+  async loginUser(req, res) {
+    try {
+      const credentials = req.body;
+      const user = await userService.loginUser(credentials);
+      res.json(user);
+    } catch (error) {
+      res.status(401).json({ message: error.message });
+    }
+  },
+  
+  async updateUser(req, res) {
+    try {
+      const { updatedData } = req.body;
+      const result = await userService.updateUser(req.user.id, updatedData);
+      res.json(result);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  },
+  
+  async getUserProfile(req, res) {
+    try {
+      const user = await userService.getUserProfile(req.user.id);
+      res.json(user);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
+};

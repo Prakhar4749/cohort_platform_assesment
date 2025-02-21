@@ -4,9 +4,14 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connectDB } from './config/dbConfig.js';
-import { authRoutes } from './routes/authRoutes.js';
-import { userRoutes } from './routes/userRoutes.js';
-import { errorHandler } from './middleware/errorHandler.js';
+import userRoutes from './routes/userRoutes.js';
+import searchRoutes from './routes/searchRoutes.js'
+import communityRoutes from './routes/communityRoutes.js';
+import membershipRoutes from './routes/membershipRoutes.js';
+// import paymentRoutes from './routes/paymentRoutes.js';
+// import gamificationRoutes from './routes/gamificationRoutes.js';
+// import permissionRoutes from './routes/permissionRoutes.js';
+import { notFound, errorHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -20,11 +25,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/communities', communityRoutes);
+app.use('/api/memberships', membershipRoutes);
+// app.use('/api/payments', paymentRoutes);
+// app.use('/api/gamification', gamificationRoutes);
+// app.use('/api/permissions', permissionRoutes);
 
-// // Error Handler
-app.use(errorHandler);
+app.use('/api/search', searchRoutes);
+
+
+// Error Handling
+app.use(notFound);
+app.use(errorHandler);;
 
 // Start server
 const PORT = process.env.PORT || 5000;

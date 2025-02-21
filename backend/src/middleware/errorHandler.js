@@ -1,10 +1,15 @@
+// middleware/errorMiddleware.js
 export const errorHandler = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
-    err.status = err.status || 'error';
-
-    res.status(err.statusCode).json({
-        success: false,
-        status: err.status,
-        message: err.message
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    
+    res.status(statusCode).json({
+      message: err.message,
+      stack: process.env.NODE_ENV === 'production' ? null : err.stack
     });
-};
+  };
+  
+  export const notFound = (req, res, next) => {
+    const error = new Error(`Not Found - ${req.originalUrl}`);
+    res.status(404);
+    next(error);
+  };
