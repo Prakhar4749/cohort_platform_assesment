@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -23,6 +24,8 @@ app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // Parses JSON body
+app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded data
 
 // Routes
 app.use('/api/users', userRoutes);
