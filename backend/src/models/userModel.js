@@ -62,7 +62,7 @@ userSchema.methods.generateAuthToken = function() {
             username: this.username
         },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '30d' }
     );
 };
 

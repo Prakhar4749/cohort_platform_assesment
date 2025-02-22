@@ -17,7 +17,7 @@ const membershipSchema = new mongoose.Schema({
     
     role: {
         type: String,
-        enum: ['member', 'moderator', 'admin'],
+        enum: ['member', 'admin'],
         default: 'member'
     },
     status: {
