@@ -6,10 +6,10 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connectDB } from './config/dbConfig.js';
 import userRoutes from './routes/userRoutes.js';
-import searchRoutes from './routes/searchRoutes.js'
+
 import communityRoutes from './routes/communityRoutes.js';
 import membershipRoutes from './routes/membershipRoutes.js';
-// import paymentRoutes from './routes/paymentRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 import gamificationRoutes from './routes/gamificationRoutes.js';
 import permissionRoutes from './routes/permissionRoutes.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
@@ -31,11 +31,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parses URL-encoded data
 app.use('/api/users', userRoutes);
 app.use('/api/communities', communityRoutes);
 app.use('/api/memberships', membershipRoutes);
-// app.use('/api/payments', paymentRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use('/api/gamification', gamificationRoutes);
 app.use('/api/permissions', permissionRoutes);
 
-app.use('/api/search', searchRoutes);
+
 
 
 // Error Handling

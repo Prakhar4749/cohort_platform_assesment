@@ -55,7 +55,44 @@ const communitySchema = new mongoose.Schema({
         website: String,
         googleMeet: String,
         msTeams: String
-    }
+    },
+
+    // Payment methods for future payments
+    paymentMethods: [{
+        type: {
+            type: String,
+            enum: ['card', 'bank', 'upi'],
+            required: true
+        },
+        isDefault: {
+            type: Boolean,
+            default: false
+        },
+        // For card payments
+        cardDetails: {
+            lastFourDigits: String,
+            cardType: String,
+            expiryMonth: String,
+            expiryYear: String,
+            cardHolderName: String
+        },
+        // For bank account
+        bankDetails: {
+            accountNumber: String,
+            bankName: String,
+            accountHolderName: String,
+            ifscCode: String
+        },
+        // For UPI
+        upiDetails: {
+            upiId: String,
+            upiHolderName: String
+        },
+        addedAt: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 }, { timestamps: true });
 
 export const Community = mongoose.model('Community', communitySchema);
