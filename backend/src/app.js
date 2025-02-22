@@ -1,8 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import morgan from 'morgan';
-import helmet from 'helmet';
 import dotenv from 'dotenv';
 import { connectDB } from './config/dbConfig.js';
 import userRoutes from './routes/userRoutes.js';
@@ -20,8 +18,6 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(helmet());
-app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // Parses JSON body
