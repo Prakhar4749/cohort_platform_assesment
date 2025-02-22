@@ -11,7 +11,7 @@ import communityRoutes from './routes/communityRoutes.js';
 import membershipRoutes from './routes/membershipRoutes.js';
 // import paymentRoutes from './routes/paymentRoutes.js';
 // import gamificationRoutes from './routes/gamificationRoutes.js';
-// import permissionRoutes from './routes/permissionRoutes.js';
+import permissionRoutes from './routes/permissionRoutes.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
@@ -33,7 +33,7 @@ app.use('/api/communities', communityRoutes);
 app.use('/api/memberships', membershipRoutes);
 // app.use('/api/payments', paymentRoutes);
 // app.use('/api/gamification', gamificationRoutes);
-// app.use('/api/permissions', permissionRoutes);
+app.use('/api/permissions', permissionRoutes);
 
 app.use('/api/search', searchRoutes);
 
