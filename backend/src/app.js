@@ -10,7 +10,7 @@ import membershipRoutes from './routes/membershipRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import gamificationRoutes from './routes/gamificationRoutes.js';
 import permissionRoutes from './routes/permissionRoutes.js';
-import { notFound, errorHandler } from './middleware/errorHandler.js';
+import { notFound } from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ app.use('/api/permissions', permissionRoutes);
 
 // Error Handling
 app.use(notFound);
-app.use(errorHandler);;
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
